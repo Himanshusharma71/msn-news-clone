@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'https://msn-news-clone-2.onrender.com/api', // ✅ LIVE backend
+  baseURL: 'https://clickon-sf3h.onrender.com/api', // ✅ LIVE backend
 });
 
 // Attach token to every request
