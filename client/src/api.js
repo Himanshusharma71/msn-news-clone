@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'https://msn-news-clone-2.onrender.com', // or your deployed URL
+  baseURL: 'http://localhost:5000/api', // or your deployed URL
 });
 
 // Attach token to every request
