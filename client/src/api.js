@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:5000/api', // 👈 "api" add kiya
+  baseURL: import.meta.env.VITE_API_URL + '/api', // deployed backend URL automatically use hoga
 });
 
 API.interceptors.request.use((req) => {
