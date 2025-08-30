@@ -1,10 +1,9 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'https://msn-news-clone.vercel.app/', // ✅ LIVE backend
+  baseURL: 'http://localhost:5000/api', // 👈 "api" add kiya
 });
 
-// Attach token to every request
 API.interceptors.request.use((req) => {
   const token = localStorage.getItem('token');
   if (token) {

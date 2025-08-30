@@ -8,7 +8,7 @@ router.post('/', newsController.createNews);
 
 router.get('/', newsController.getAllNews);
 router.get('/:id', newsController.getNewsById);
-router.delete('/:id', newsController.deleteNews);
+router.delete('/:id',authMiddleware, newsController.deleteNews);
 router.put('/:id',  newsController.updateNews);
 // router.get('/', newsController.getAllNews);
 // router.get('/:id', newsController.getNewsById);

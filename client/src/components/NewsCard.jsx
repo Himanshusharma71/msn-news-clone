@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import API from '../api';
 
 export default function NewsCard({ item, onDelete }) {
+  const token = localStorage.getItem("token");
+  const isLoggedIn = !!token;
 
   const handleDelete = async () => {
     try {
@@ -16,7 +18,6 @@ export default function NewsCard({ item, onDelete }) {
 
   return (
     <div className="w-full border p-5 rounded-xl shadow-md bg-white flex flex-col h-full">
-      {/* Bigger image */}
       <img
         src={item.imageURL}
         alt="news"
@@ -31,26 +32,37 @@ export default function NewsCard({ item, onDelete }) {
         {item.headline}
       </h2>
 
-      <p className="text-gray-700 text-sm flex-grow">
+      <p className="text-gray-700 text-sm flex-grow line-clamp-3">
         {item.description}
       </p>
 
-      
-        <div className="flex gap-4 justify-end mt-4">
-          <Link
-            to={`/edit/${item._id}`}
-            className="text-green-600 hover:underline"
-          >
-            Edit
-          </Link>
+      <div className="flex gap-4 justify-between mt-4">
+        {/* 👇 Read More button */}
+        <Link
+          to={`/news/${item._id}`}
+          className="text-blue-600 hover:underline"
+        >
+          Read More
+        </Link>
+
+        {/* Edit sabko visible */}
+        <Link
+          to={`/edit/${item._id}`}
+          className="text-green-600 hover:underline"
+        >
+          Edit
+        </Link>
+
+        {/* Delete sirf login ke liye */}
+        {isLoggedIn && (
           <button
             onClick={handleDelete}
             className="text-red-500 hover:underline"
           >
             Delete
           </button>
-        </div>
-     
+        )}
+      </div>
     </div>
   );
 }

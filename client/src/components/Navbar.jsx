@@ -1,24 +1,28 @@
 // components/Navbar.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Weather from '../pages/Weather';
-import { Menu, X } from 'lucide-react'; // optional icons
+import { Menu, X } from 'lucide-react';
 
 export default function Navbar({ setSearch, onCategorySelect }) {
   const navigate = useNavigate();
-  const isLoggedIn = localStorage.getItem('token');
   const [open, setOpen] = useState(false);
-const categories = ['All', 'News', 'Sports', 'Play', 'Money', 'Weather', 'Watch', 'Shopping'];
+  const [showEmail, setShowEmail] = useState(false);
+
+  // token & email
+  const token = localStorage.getItem('token');
+  const email = localStorage.getItem('email'); // 👈 ensure login ke baad email localStorage me save karte ho
+
+  const categories = ['All', 'News', 'Sports', 'Play', 'Money', 'Weather', 'Watch', 'Shopping'];
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('email');
     navigate('/');
   };
 
   return (
     <>
       <nav className="bg-gray-800 text-white px-4 py-3 flex flex-wrap items-center justify-between">
-        {/* <div className="text-2xl font-bold">clicksamachar.com</div> */}
         <Link to="/" className="text-2xl font-bold">MSN</Link>
 
         <div className="block sm:hidden" onClick={() => setOpen(!open)}>
@@ -34,17 +38,36 @@ const categories = ['All', 'News', 'Sports', 'Play', 'Money', 'Weather', 'Watch'
           />
           <Link to="/">Home</Link>
           <Link to="/add">Add News</Link>
-          {!isLoggedIn ? (
+
+          {!token ? (
             <>
               <Link to="/login">Login</Link>
               <Link to="/signup">Signup</Link>
             </>
           ) : (
-            <button onClick={handleLogout}>Logout</button>
+            <div className="relative">
+              {/* Avatar button */}
+              <button
+                onClick={() => setShowEmail(!showEmail)}
+                className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold"
+              >
+                {email ? email.charAt(0).toUpperCase() : "U"}
+              </button>
+
+              {/* Email dropdown */}
+              {showEmail && (
+                <div className="absolute right-0 mt-2 bg-white text-black rounded shadow-md px-4 py-2">
+                  <p className="text-sm">{email}</p>
+                  <button
+                    onClick={handleLogout}
+                    className="text-red-500 hover:underline text-sm mt-1"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
           )}
-          <div className="mt-2 sm:mt-0">
-            {/* <Weather /> */}
-          </div>
         </div>
       </nav>
 

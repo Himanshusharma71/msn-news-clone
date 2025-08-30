@@ -6,10 +6,8 @@ require('dotenv').config();
 const app = express();
 app.use(express.json());
 
-app.use(cors({
-  origin: 'https://msnnews.onrender.com',
-  credentials: true
-}));
+app.use(cors({ origin: 'http://localhost:5173', credentials: true })); 
+// 👆 Frontend local Vite port
 
 const newsRoutes = require('./routes/newsRoutes');
 const authRoutes = require('./routes/authRoutes');
@@ -17,12 +15,9 @@ const authRoutes = require('./routes/authRoutes');
 app.use('/api/news', newsRoutes);
 app.use('/api/auth', authRoutes);
 
-app.get('/',(req,res)=>{
-  res.send({
-    activeStatus:true,
-    error:false,
-  })
-})
+app.get('/', (req, res) => {
+  res.send({ activeStatus: true, error: false });
+});
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
