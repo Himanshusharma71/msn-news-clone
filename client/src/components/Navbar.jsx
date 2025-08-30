@@ -19,7 +19,7 @@ const categories = ['All', 'News', 'Sports', 'Play', 'Money', 'Weather', 'Watch'
     <>
       <nav className="bg-gray-800 text-white px-4 py-3 flex flex-wrap items-center justify-between">
         {/* <div className="text-2xl font-bold">clicksamachar.com</div> */}
-        <Link to="/" className="text-2xl font-bold">clicksamachar.com</Link>
+        <Link to="/" className="text-2xl font-bold">MSN</Link>
 
         <div className="block sm:hidden" onClick={() => setOpen(!open)}>
           {open ? <X /> : <Menu />}
